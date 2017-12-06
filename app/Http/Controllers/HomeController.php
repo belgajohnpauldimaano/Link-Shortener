@@ -68,7 +68,10 @@ class HomeController extends Controller
 
     public function redirect_shortened_url ($url_code)
     {
+
         $Link = Link::where('shortened_link', $url_code)->first();
+        if ()
+        
         return redirect($Link->actual_link);
     }
 }
