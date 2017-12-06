@@ -11,10 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'url-shortener'], function () {
+    Route::post('url_shortener', 'HomeController@url_shortener')->name('urlshortener');
+});
+
+Route::get('/{url_code}', 'HomeController@redirect_shortened_url');
