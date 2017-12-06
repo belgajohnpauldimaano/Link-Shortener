@@ -17,6 +17,7 @@ class CreateLinksTable extends Migration
             $table->increments('id');
             $table->string('actual_link');
             $table->string('shortened_link');
+            $table->string('full_shortened_link');
             $table->timestamps();
         });
     }

@@ -20,6 +20,13 @@ Route::group(['prefix' => 'url-shortener'], function () {
     Route::post('url_shortener', 'HomeController@url_shortener')->name('urlshortener');
 });
 
+Route::group(['prefix' => 'url-statistics'], function () {
+    Route::get('/', 'HomeController@url_statistics')->name('url_statistics');
+    Route::post('url-statistics-search', 'HomeController@url_statistics_search')->name('url_statistics.url_statistics_search');
+    
+});
+
+
 Route::get('/', function () {
     return view('welcome');
 });

@@ -26,4 +26,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function citizenship ()
+    {
+        return $this->hasOne(Citizenship::class, 'id', 'citizenship_id');
+    }
+
+    public function country ()
+    {
+        return $this->hasOne(Country::class, 'id', 'country_id');
+    }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Link;
+use App\UserVisit;
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -68,10 +70,37 @@ class HomeController extends Controller
 
     public function redirect_shortened_url ($url_code)
     {
-
         $Link = Link::where('shortened_link', $url_code)->first();
-        if ()
-        
+        if (!$Link)
+        {
+            return redirect('/');
+        }
+
+        $UserVisit = new UserVisit();
+        $UserVisit->user_id = Auth::user()->id;
+        $UserVisit->link_id = $Link->id;
+        $UserVisit->save();
+
         return redirect($Link->actual_link);
+    }    
+
+    public function url_statistics ()
+    {
+        return view('url_statistics');
+    }
+
+    public function url_statistics_search (Request $request)
+    {
+        $Link = Link::with([
+                'user_visits', 
+                'user_visits.user',
+                'user_visits.user.country', 
+                'user_visits.user.citizenship'
+        ])
+        ->where('shortened_link', 'like', '%'. $request->url .'%')
+        ->orWhere('full_shortened_link', 'like', '%'. $request->url .'%')
+        ->first();
+        // return json_encode($Link);
+        return view('partials.url_statistics.search_data', ['Link' => $Link]);
     }
 }
