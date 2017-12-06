@@ -28,6 +28,6 @@ Route::group(['prefix' => 'url-statistics'], function () {
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 Route::get('/{url_code}', 'HomeController@redirect_shortened_url');
