@@ -62,6 +62,7 @@ class HomeController extends Controller
         $Link = new Link();
         $Link->actual_link = $request->url;
         $Link->shortened_link = $url_code;
+        $Link->full_shortened_link = $shortened_link;
         $Link->save();
         
         // return the newly created shortened url
